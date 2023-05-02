@@ -1,0 +1,105 @@
+{% extends 'board.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load humanize %}
+{% block title %}
+  <title>Registered Courses</title>
+  <meta name="description" content="">
+
+{% endblock title %}
+
+{% block content %}
+{% load home_tags %}
+<div class=" app-content">
+	<div class="side-app">
+
+    <br>
+    {% include 'partials/_alerts.html' %}
+    <br>
+		<!--Page Header-->
+		<div class="page-header">
+			<h4 class="page-title"><i class="fa fa-check-circle text-apu-purple mr-2 fa-1x"></i>Welcome to your registerd courses' page, <strong class="text-apu-purple">{{user.first_name}}</strong></h4>
+			<ol class="breadcrumb bg-white">
+        <li class="breadcrumb-item"><a href="{% url 'undergrad_board' %}"><strong>Dashboard</strong></a></li>
+				<li class="breadcrumb-item active" aria-current="page"><strong>Courses</strong></li>
+			</ol>
+		</div>
+		<!--page header-->
+
+  <div class="row">
+    <div class="col-xl-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title text-apu-purple"><strong>Registered Courses (100 Level Rain)</strong></div>
+        </div>
+        <br>
+        <div class="text-center">
+          <h2 class="form-group text-apu-purple">Filter By</h2>
+        </div>
+        <div class="col-md-12">
+          <div class="box-element bg-apu-purple" id="form-wrapper">
+            <form method="get" class="form-inline text-white">
+              {% for field in filtered_courses.form %}
+                <strong>{{field.label}}:</strong>&nbsp{{field}}&nbsp&nbsp
+              {% endfor %}
+              <input type="submit" class="btn btn-apu-green" value="Search">
+            </form>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="text-center">
+            {% if total_courses > 1 %}
+              <div class="form-group col-md-12">
+                <h3 class="form-group text-apu-purple">Total: {{total_courses}}</h3>
+              </div>
+              {% else %}
+              <div class="form-group col-md-12">
+                <h3 class="form-group text-apu-purple">Total: {{total_courses}}</h3>
+              </div>
+              {% endif %}
+          </div>
+
+          <div class="table-responsive ">
+            <table class="table card-table table-vcenter text-nowrap">
+              <thead class="text-apu-green">
+                <tr>
+                  <th>DATE REGISTERED</th>
+                  <th>SESSION</th>
+                  <th>COURSE CODE</th>
+                  <th>COURSE TITLE</th>
+                  <th>CREDIT UNIT</th>
+                  <th>COORDINATOR</th>
+                </tr>
+              </thead>
+              <tbody class="">
+                {% for course in courses_page_obj %}
+                <tr class="">
+                  <th>{{course.created}}</th>
+                  <th>{{course.session}}</th>
+                  <td>{{course.course.course_code}}</td>
+                  <td>{{course.course.course_title}}</td>
+                  <td>{{course.course.credit_unit}}</td>
+                  <td>{{course.course.lecturer}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <nav aria-label="...">
+              <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="text-apu-green page-link" href="{% my_url 1 'page' request.GET.urlencode %}" tabindex="-1" aria-disabled="true">First</a></li>
+                {% if courses_page_obj.has_previous %}
+                  <li class="page-item"><a class="text-apu-green page-link" href="{% my_url courses_page_obj.previous_page_number 'page' request.GET.urlencode %}">{{courses_page_obj.previous_page_number}}</a></li>
+                {% endif %}
+                <li class="page-item active" aria-current="page"><a class="bg-apu-green page-link" href="{% my_url courses_page_obj.number 'page' request.GET.urlencode %}">{{courses_page_obj.number}}<span class="sr-only">(current)</span></a></li>
+                {% if courses_page_obj.has_next %}
+                  <li class="page-item"><a class="text-apu-green page-link" href="{% my_url courses_page_obj.next_page_number 'page' request.GET.urlencode %}">{{courses_page_obj.next_page_number}}</a></li>
+                {% endif %}
+                <li class="page-item"><a class="text-apu-green page-link" href="{% my_url courses_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">Last</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content%}

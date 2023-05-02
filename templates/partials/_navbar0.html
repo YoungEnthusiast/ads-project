@@ -1,0 +1,94 @@
+{% load static %}
+<!-- Navbar-->
+<div class="wrapper row0">
+    <div id="topbar" class="clear">
+      <!-- ################################################################################################ -->
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Student/Staff Login</a></li>
+        </ul>
+      </nav>
+      <!-- ################################################################################################ -->
+    </div>
+  </div>
+  <!-- ################################################################################################ -->
+  <!-- ################################################################################################ -->
+  <!-- ################################################################################################ -->
+  <div class="wrapper row1">
+    <header id="header" class="clear">
+      <!-- ################################################################################################ -->
+      <div id="logo" class="fl_left">
+        <h1><a href="index.html"><img src="{% static 'img/logo2.png' %}" class="logo" alt="University Logo">Ahman Pategi University</a></h1>
+      </div>
+      {% comment %} <div class="fl_right">
+        <form class="clear" method="post" action="#">
+          <fieldset>
+            <legend>Search:</legend>
+            <input type="text" value="" placeholder="Search Here">
+            <button class="fa fa-search" type="submit" title="Search"><em>Search</em></button>
+          </fieldset>
+        </form>
+      </div> {% endcomment %}
+      <!-- ################################################################################################ -->
+    </header>
+  </div>
+  <!-- ################################################################################################ -->
+  <!-- ################################################################################################ -->
+  <!-- ################################################################################################ -->
+  <div class="wrapper row2">
+    <div class="rounded">
+      <nav id="mainav" class="clear">
+        <!-- ################################################################################################ -->
+        <ul class="clear">
+          <li
+          {% if '/' == request.path %}
+          class="active"
+          {% else %}
+
+          {% endif %}
+
+          ><a href="{% url 'index' %}"><strong>Home</strong></a></li>
+
+          <li
+          {% if 'about-us' in request.path %}
+          class="active"
+          {% else %}
+
+          {% endif %}
+          ><a href="{% url 'about' %}"><strong>About Us</strong></a></li>
+          <li><a class="drop" href="#"><strong>Academics</strong></a>
+                <ul>
+                    <li><a class="drop" href="">Faculty of Humanities</a>
+                        <ul>
+                            <li><a href="">Department 1</a></li>
+                            <li><a href="">Department 2</a></li>
+
+                        </ul>
+                    </li>
+                    <li><a class="drop" href="">Faculty of Science and Computing</a>
+                        <ul>
+                            <li><a href="">Department 1</a></li>
+                            <li><a href="">Department 2</a></li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+          <li><a href="#"><strong>Admission</strong></a></li>
+          <li><a href="#"><strong>News</strong></a></li>
+          <li><a class="drop" href="#"><strong>Gallery</strong></a>
+            <ul>
+              <li><a href="">Pictures</a></li>
+              <li><a href="">Videos</a></li>
+
+            </ul>
+          </li>
+
+        </ul>
+        <!-- ################################################################################################ -->
+      </nav>
+    </div>
+  </div>

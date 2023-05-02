@@ -1,0 +1,161 @@
+{% extends 'board.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load humanize %}
+{% block title %}
+  <title>Registered Courses</title>
+  <meta name="description" content="">
+  <style type="text/css">
+  @media print {
+      #printbtn {
+          display :  none;
+      }
+  }
+  </style>
+
+{% endblock title %}
+
+{% block content %}
+{% load home_tags %}
+<div class=" app-content">
+	<div class="side-app">
+
+    <br>
+    {% include 'partials/_alerts.html' %}
+    <br>
+		<!--Page Header-->
+		<div id="printbtn" class="page-header">
+			<h4 class="page-title"><i class="fa fa-check-circle text-apu-purple mr-2 fa-1x"></i>Welcome to your registerd courses' page, <strong class="text-apu-purple">{{user.first_name}}</strong></h4>
+			<ol class="breadcrumb bg-white">
+        <li class="breadcrumb-item"><a href="{% url 'undergrad_board' %}"><strong>Dashboard</strong></a></li>
+				<li class="breadcrumb-item active" aria-current="page"><strong>Courses</strong></li>
+			</ol>
+		</div>
+		<!--page header-->
+
+  <div class="row">
+    <div class="col-xl-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title text-apu-purple"><strong>Registered Courses</strong></div>
+        </div>
+        <br>
+        <div id="printbtn" class="text-center">
+          <h2 class="form-group text-apu-purple">Filter By</h2>
+        </div>
+        <div id="printbtn" class="col-md-12">
+          <div class="box-element bg-apu-purple" id="form-wrapper">
+            <form method="get" class="form-inline text-white">
+              {% for field in filtered_courses.form %}
+                <strong>{{field.label}}:</strong>&nbsp{{field}}&nbsp&nbsp
+              {% endfor %}
+              <input type="submit" class="btn btn-apu-green" value="Search">
+            </form>
+          </div>
+        </div>
+
+        <div class="row">
+      <div class="col-md-2">
+        <h5 class="text-right"><img src="{% static 'img/logo.png' %}" alt="Al-itqan Logo" class="logo2"></h5>
+      </div>
+      <div class="col-md-8">
+        <h2 class="text-center text-primary"><font size="+3"><strong>مدارس الإتقان النموذجية</strong></font></h2>
+        <h2 class="text-center text-primary p1 lh2"><strong>AL-ITQĀN MODEL ACADEMY</strong></h2>
+        <p class="text-center text-primary lh3">7, Balogun Close, off Ilesanmi Bus Stop, University of Ilorin Permanent Site (PS) Road Tanke Ilorin, Kwara State.</p>
+        <p class="text-center text-primary lh"><strong class="text-primary">Phone No.:</strong> +234(0)9098374769, <strong class="text-primary">Email:</strong> info@alitqan.sch.ng</p>
+      </div>
+      <div class="col-md-1 mt-4">
+        {% if first.student.photograph %}
+          <h5 class="text-left"><img src="{{ first.student.photograph.url }}" alt="student's Photograph" class="logo3"></h5>
+        {% endif %}
+      </div>
+      <div class="col-md-1">
+
+      </div>
+    </div>
+
+    <h2 class="text-center text-primary p1"><strong>REPORT SHEET</strong></h2>
+    <div class="row">
+      <div class="col-md-5">
+        <h6 class="text-primary text-left"><strong>NAME: <span class="text-warning">{{first.student.first_name}} {{first.student.last_name}}</span> </strong></h6>
+        <h6 class="text-primary text-left"><strong>ADMISSION NO: <span class="text-warning"></span></strong></h6>
+        <h6 class="text-primary text-left"><strong>GENDER: <span class="text-warning">{{first.student.gender}}</span></strong></h6>
+      </div>
+      <div class="col-md-3">
+        <h6 class="text-primary text-left"><strong>TERM: <span class="text-warning">FIRST</span></strong></h6>
+        <h6 class="text-primary text-left"><strong>SESSION: <span class="text-warning">{{first.session}}</span></strong></h6>
+      </div>
+      <div class="col-md-1">
+
+      </div>
+      <div class="col-md-3">
+        <h6 class="text-primary text-left"><strong>AGE: <span class="text-warning">{{first.student.age}} years</span> </strong></h6>
+        <h6 class="text-primary text-left"><strong>CLASS: <span class="text-warning">{{first.static_class}}</span></strong></h6>
+        <h6 class="text-primary text-left"><strong>NUMBER IN CLASS: <span class="text-warning">{{class_students_count}}</span></strong></h6>
+      </div>
+    </div>
+
+
+
+        <div class="card-body">
+          <strong>100 Level Harmattan</strong>
+          <div class="text-center">
+            {% if total_courses > 1 %}
+              <div class="form-group col-md-12">
+                <h3 class="form-group text-apu-purple">Total: {{total_courses}}</h3>
+              </div>
+              {% else %}
+              <div class="form-group col-md-12">
+                <h3 class="form-group text-apu-purple">Total: {{total_courses}}</h3>
+              </div>
+              {% endif %}
+          </div>
+
+          <div class="table-responsive ">
+            <table class="table card-table table-vcenter text-nowrap">
+              <thead class="text-apu-green">
+                <tr>
+                  <th>DATE REGISTERED</th>
+                  <th>SESSION</th>
+                  <th>COURSE CODE</th>
+                  <th>COURSE TITLE</th>
+                  <th>CREDIT UNIT</th>
+                  <th>COORDINATOR</th>
+                </tr>
+              </thead>
+              <tbody class="">
+                {% for course in courses_page_obj %}
+                <tr class="">
+                  <th>{{course.created}}</th>
+                  <th>{{course.session}}</th>
+                  <td>{{course.course.course_code}}</td>
+                  <td>{{course.course.course_title}}</td>
+                  <td>{{course.course.credit_unit}}</td>
+                  <td>{{course.course.lecturer}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <nav aria-label="...">
+              <ul id="printbtn" class="pagination justify-content-center">
+                <li class="page-item"><a class="text-apu-green page-link" href="{% my_url 1 'page' request.GET.urlencode %}" tabindex="-1" aria-disabled="true">First</a></li>
+                {% if courses_page_obj.has_previous %}
+                  <li class="page-item"><a class="text-apu-green page-link" href="{% my_url courses_page_obj.previous_page_number 'page' request.GET.urlencode %}">{{courses_page_obj.previous_page_number}}</a></li>
+                {% endif %}
+                <li class="page-item active" aria-current="page"><a class="bg-apu-green page-link" href="{% my_url courses_page_obj.number 'page' request.GET.urlencode %}">{{courses_page_obj.number}}<span class="sr-only">(current)</span></a></li>
+                {% if courses_page_obj.has_next %}
+                  <li class="page-item"><a class="text-apu-green page-link" href="{% my_url courses_page_obj.next_page_number 'page' request.GET.urlencode %}">{{courses_page_obj.next_page_number}}</a></li>
+                {% endif %}
+                <li class="page-item"><a class="text-apu-green page-link" href="{% my_url courses_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">Last</a></li>
+              </ul>
+            </nav>
+            <div id="printbtn" class="card-footer text-right">
+                <a href=""><button type="button" class="btn btn-sm btn-dark-green"><strong><i class="fa fa-download mr-1 fa-1x"></i> Export CSV</strong></button></a>
+                <button type="button" class="btn btn-apu-green mb-1" onClick="javascript:window.print();"><i class="fas fa-print fa-1x mr-1"></i> Print</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content%}

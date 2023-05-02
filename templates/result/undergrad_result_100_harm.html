@@ -1,0 +1,267 @@
+{% extends 'base_undergrad_result.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load home_tags %}
+{% block title %}
+<title>{{score.undergrad.score_name}} {{score.undergrad.last_name}}'s {{score.session}} Harmattan Result</title>
+  <style type="text/css">
+  @media print {
+      #printbtn {
+          display :  none;
+      }
+
+  }
+  </style>
+{% endblock title %}
+
+{% block content %}
+{% if score.undergrad == request.user %}
+<form class="text-center">
+  <input id ="printbtn" type="button" class="btn btn-apu-purple" value="Click to show print preview" onclick="window.print();" >
+</form> <br>
+<div class="text-center report">
+  <div class="bg-white text-dark form-group col-md-12">
+    <div class="row">
+      <div class="col-md-2">
+        <br>
+        <h5 class="text-right"><img src="{% static 'img/logo2.png' %}" alt="APU Logo" class="logo3"></h5>
+      </div>
+      <div class="col-md-8">
+        <h2 class="text-center text-primary p7 lh3"><strong>AHMAN PATEGI UNIVERSITY</strong></h2>
+      </div>
+      <div class="col-md-2 mt-4">
+        {% if score.undergrad.photograph %}
+          <h5 class="text-left"><img src="{{ score.undergrad.photograph.url }}" alt="undergrad's Photograph" class="logo3"></h5>
+        {% else %}
+          <h5 class="text-left"><i class="fas fa-user fa-8x text-apu-purple"></i> </h5>
+        {% endif %}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 text-left">
+        <h6 class="text-black text-left"><strong>1. BIODATA</strong></h6>
+        <div class="table-responsive">
+          <table class="table table-sm table-bordered">
+            <tr class="table-light">
+              <td class="text-apu-purple text-left"><strong>Name</strong></td>
+              <td class="text-dark text-left"><strong>{{score.undergrad.first_name}} {{score.undergrad.last_name}}</strong></td>
+            </tr>
+            <tr class="table-light">
+              <td class="text-apu-purple"><strong>Date of Birth</strong></td>
+              <td class="text-dark"><strong>{{score.undergrad.dob}}</strong></td>
+            </tr>
+            <tr class="table-light">
+              <td class="text-apu-purple"><strong>Sex</strong></td>
+              <td class="text-dark"><strong>{{score.undergrad.gender}}</strong></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="col-md-4 text-left">
+        <h6 class="text-black text-left"><strong>2. SESSION INFORMATION</strong></h6>
+        <div class="table-responsive">
+          <table class="table table-sm table-bordered">
+            <tr class="table-light">
+              <td class="text-apu-purple text-left"><strong>Session</strong></td>
+              <td class="text-dark text-left"><strong>{{score.session}}</strong></td>
+            </tr>
+            <tr class="table-light">
+              <td class="text-apu-purple"><strong>Semester</strong></td>
+              <td class="text-dark"><strong>{{score.semester}}</strong></td>
+            </tr>
+            <tr class="table-light">
+              <td class="text-apu-purple"><strong>Level</strong></td>
+              <td class="text-dark"><strong>100</strong></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="col-md-4 text-left">
+        <h6 class="text-black text-left"><strong>3. ACADEMIC RECORD</strong></h6>
+        <div class="table-responsive">
+          <table class="table table-sm table-bordered">
+            <tr class="table-light">
+              <td class="text-apu-purple"><strong>Matric Number</strong></td>
+              <td class="text-dark"><strong>{{score.undergrad.username}}</strong></td>
+            </tr>
+
+            <tr class="table-light">
+              <td class="text-apu-purple"><strong>Faculty</strong></td>
+              <td class="text-dark"><strong>{{score.undergrad.programme.department.faculty}}</strong></td>
+            </tr>
+            <tr class="table-light">
+              <td class="text-apu-purple"><strong>Department</strong></td>
+              <td class="text-dark"><strong>{{score.undergrad.programme.department}}</strong></td>
+            </tr>
+            <tr class="table-light">
+              <td class="text-apu-purple"><strong>Programme</strong></td>
+              <td class="text-dark"><strong>{{score.undergrad.programme}}</strong></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <h6 class="text-black text-left"><strong>4. SEMESTER PERFORMANCE</strong></h6>
+        <div class="table-responsive">
+          <table class="table table-sm table-bordered">
+            <tbody class="table-light">
+              <tr class="bg-white">
+                <th class="text-center text-apu-purple"><strong>COURSE CODE</strong></th>
+                <th class="text-center text-apu-purple"><strong>COURSE TITLE</strong></th>
+                <th class="text-center text-apu-purple"><strong>CREDIT UNIT</strong></th>
+                <th class="text-center text-apu-purple"><strong>SCORE</strong></th>
+                <th class="text-center text-apu-purple"><strong>GRADE</strong></th>
+                <th class="text-center text-apu-purple"><strong>COURSE AVERAGE</strong></th>
+                <th class="text-center text-apu-purple"><strong>POSITION IN COURSE</strong></th>
+              </tr>
+
+              {% for score in scores_undergrad %}
+              <tr class="table-light">
+                <td class="text-dark"><strong>{{score.course.course_code}}</strong></td>
+                <td class="text-dark text-left"><strong>{{score.course.course_title}}</strong></td>
+                <td class="text-dark text-center tab"><strong>{{score.course.credit_unit}}</strong></td>
+                <td class="text-dark text-center"><strong>{{score.total}}</strong></td>
+                {% if score.total > 69 %}
+                <td style="background:#1b5e02!important" class="text-white text-center"><strong>{{score.grade}}</strong></td>
+                {% elif score.total > 59 %}
+                <td style="background:#2fa802!important" class="text-white text-center"><strong>{{score.grade}}</strong></td>
+                {% elif score.total > 49 %}
+                <td style="background:#8dfc17!important" class="text-white text-center"><strong>{{score.grade}}</strong></td>
+                {% elif score.total > 44 %}
+                <td style="background:#e9fc17!important" class="text-black text-center"><strong>{{score.grade}}</strong></td>
+                {% elif score.total > 39 %}
+                <td style="background:#fc8617!important" class="text-white text-center"><strong>{{score.grade}}</strong></td>
+                {% elif score.total < 40 %}
+                <td style="background:#ff0000!important" class="text-white text-center"><strong>{{score.grade}}</strong></td>
+                {% endif %}
+                <td class="text-dark text-center tab"><strong>{{score.course_avg}}</strong></td>
+                <td class="text-dark text-center tab"><strong>{{score.course_pos|my_suffix}}</strong></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <p class="text-right">
+            <span class="text-apu-green">Semester Points: </span>{{score.semester_points}}
+            <span class="text-apu-green">Total Points: </span>{{score.total_points}}
+            <span class="text-apu-green">Semester Credits: </span>{{score.semester_credits}}
+            <span class="text-apu-green">Total Credits: </span>{{score.total_credits}}
+            <strong><span class="text-apu-green">:Semester GPA: </span>{{score.semester_gpa}}/5.00</strong>
+            <strong><span class="text-apu-green">:Cumulative GPA: </span>{{score.cumulative_gpa}}/5.00</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <p class="text-black text-center lh h6"><strong>GRADES' KEY</strong></p>
+        <p class="text-dark text-left lh">70 - 100 <span class="bg-A text-white">A</span> Distinction</p>
+        <p class="text-dark text-left lh">60 - 69 <span class="bg-B text-white">B</span> Excellent</p>
+        <p class="text-dark text-left lh">50 - 59 <span class="bg-C text-white">C</span> Good</p>
+      </div>
+      <div class="col-md-2">
+        <br>
+        <p class="text-dark text-left lh">45 - 49 <span class="bg-D">D</span> Pass</p>
+        <p class="text-dark text-left lh">40 - 44 <span class="bg-E text-white">E</span> Weak Pass</p>
+        <p class="text-dark text-left lh">0 - 39 <span class="bg-F text-white">F</span> Fail</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div id="container" style="width: 80%;">
+        <canvas id="undergrad_result"></canvas>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
+        <script>
+
+        $(function () {
+
+          var courses_list = {{ courses_list|safe }}
+          var courses_total_list = {{ courses_total_list|safe }}
+
+          var $populationChart = $("#undergrad_result");
+          $.ajax({
+            url: $populationChart.data("url"),
+            success: function (data) {
+
+              var ctx = $populationChart[0].getContext("2d");
+
+              new Chart(ctx, {
+                type: 'bar',
+                data: {
+                  labels: courses_list,
+                  datasets: [{
+                    label: 'Score (%)',
+                    backgroundColor: '#007541',
+                    data: courses_total_list,
+                  }]
+                },
+                options: {
+                  responsive: true,
+                  legend: {
+                    position: 'top',
+                  },
+                  title: {
+                    display: true,
+                    text: "COURSES' TOTALS FROM HIGHEST TO LOWEST"
+                  }
+
+                }
+              });
+
+            }
+          });
+
+        });
+
+      </script>
+      </div>
+    </div>
+
+    <br>
+    <br>
+
+    <div class="row">
+        <div class="col-md-5">
+        </div>
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-3">
+          <strong> <p class="text-black text-right">UNIVERSITY'S SEAL: </p></strong>
+        </div>
+        <div class="col-md-2">
+          {% if score.static_seal %}
+            <sup><p class="text-left"><img src="{{score.static_seal.url}}" alt="University's Seal" class="sig2"></p></sup>
+          {% endif %}
+        </div>
+        <div class="col-md-1">
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-5">
+        </div>
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-3">
+          <strong> <p class="text-black text-right">DATE: </p></strong>
+        </div>
+        <div class="col-md-3">
+          <p class="text-left text-primary"><strong>{{score.updated}}</strong></p>
+        </div>
+
+      </div>
+
+  {% else %}
+    <h2 class="text-center text-apu-purple">Access Restricted!</h2>
+    <br>
+{% endif %}
+
+{% endblock content%}

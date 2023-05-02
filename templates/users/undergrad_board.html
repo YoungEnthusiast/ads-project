@@ -1,0 +1,286 @@
+{% extends 'board.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}
+  <title>My Dashboard</title>
+  <meta name="description" content="">
+
+{% endblock title %}
+
+{% block content %}
+<br>
+<br>
+<div class=" app-content">
+	<div class="side-app">
+
+    {% include 'partials/_alerts.html' %}
+		<!--Page Header-->
+		<div class="page-header">
+			<h4 class="page-title"><i class="fa fa-home text-apu-purple mr-2 fa-1x"></i>Welcome to your dashboard, <strong class="text-apu-purple">{{user.first_name}}</strong></h4>
+			<ol class="breadcrumb bg-white">
+				<li class="breadcrumb-item"><a href=""><strong>Home</strong></a></li>
+				<li class="breadcrumb-item active" aria-current="page"><strong>Dashboard</strong></li>
+			</ol>
+		</div>
+		<!--page header-->
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-body">
+						<div class="d-sm-flex m-0">
+							<div class="mr-4">
+								<a class="btn fw-500 ms-lg-4" href="">
+									{% if user.photograph %}
+										<img src="{{ user.photographURL }}" alt="Photograph" class="profile-small">
+									{% else %}
+										<i class="fa fa-user-circle text-apu-purple fa-5x"></i>
+									{% endif %}
+								</a>
+							</div>
+							<div class="my-4 my-sm-0">
+								<div>
+									<h4 class="media-heading font-weight-bold">Hi, {{user.first_name}}!</h4>
+									<p class="text-muted">Please update your profile to complete your registration</p>
+								</div>
+								<div class="progress progress-sm">
+									<div class="progress-bar progress-bar-striped progress-bar-animated bg-apu-purple w-60"></div>
+								</div>
+							</div>
+							<div class="ml-auto mb-0">
+								<a href="{% url 'undergrad_profile' %}" class="btn btn-sm btn-apu-purple" data-toggle="tooltip" title="Please click to edit your profile" data-original-title="Edit Profile"><i class="fa fa-edit mr-1"></i> <strong>Edit Profile</strong></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+    <div class="row">
+			<div class="col-md-12 col-lg-6 col-xl-4">
+				<div class="card bg-apu-purple">
+					<div class="card-body  pb-4">
+						<div class="">
+							<div class="float-left">
+								<span class="text-apu-green">
+									<i class="fa fa-book fa-3x"></i>
+								</span>
+							</div>
+							<div class="float-right text-right text-white">
+								<br>
+                <span class="num-font mb-1 text-apu-green h4">Programme</span>
+								<h5 class="mb-1 text-white">{{my_programme}}</h5>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12 col-lg-6 col-xl-4">
+				<div class="card bg-apu-purple">
+					<div class="card-body  pb-4">
+						<div class="">
+							<div class="float-left">
+								<span class="text-apu-green">
+									<i class="fa fa-id-card fa-3x"></i>
+								</span>
+							</div>
+							<div class="float-right text-right text-white">
+								<br>
+                <span class="num-font mb-1 text-apu-green h4">Department</span>
+								<h5 class="mb-1 text-white">{{my_department}}</h5>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12 col-lg-6 col-xl-4">
+				<div class="card bg-apu-purple">
+					<div class="card-body  pb-4">
+						<div class="">
+							<div class="float-left">
+								<span class="text-apu-green">
+									<i class="fa fa-university fa-3x"></i>
+								</span>
+							</div>
+							<div class="float-right text-right text-white">
+                <br>
+                <span class="num-font mb-1 text-apu-green h4">Faculty</span>
+								<h5 class="mb-1 text-white">{{my_faculty}}</h5>
+
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+	</div>
+
+    <div class="row">
+			<div class="col-md-12 col-lg-6 col-xl-4">
+				<div class="card bg-apu-purple">
+					<div class="card-body  pb-4">
+						<div class="">
+							<div class="float-left">
+								<span class="text-apu-green">
+									<i class="fa fa-street-view fa-3x"></i>
+								</span>
+							</div>
+							<div class="float-right text-right text-white">
+								<br>
+                <span class="num-font mb-1 text-apu-green h4">Currently in</span>
+								<h5 class="mb-1 text-white">{{my_level}}</h5>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12 col-lg-6 col-xl-4">
+				<div class="card bg-apu-purple">
+					<div class="card-body  pb-4">
+						<div class="">
+							<div class="float-left">
+								<span class="text-apu-green">
+									<i class="fa fa-chalkboard-teacher fa-3x"></i>
+								</span>
+							</div>
+							<div class="float-right text-right text-white">
+								<br>
+                <span class="num-font mb-1 text-apu-green h4">Advisor</span>
+								<h5 class="mb-1 text-white">{{my_advisor}}</h5>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12 col-lg-6 col-xl-4">
+				<div class="card bg-apu-purple">
+					<div class="card-body  pb-4">
+						<div class="">
+							<div class="float-left">
+								<span class="text-apu-green">
+									<i class="fa fa-users fa-3x"></i>
+								</span>
+							</div>
+							<div class="float-right text-right text-white">
+								<br>
+                <span class="text-apu-green h4">Students in Prog.</span>
+								<h5 class="num-font mb-1 text-white">{{studs}}</h5>
+
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+	</div>
+
+
+
+  <div class="row">
+    <div class="col-md-6">
+      <div id="container" style="width: 100%;">
+      <canvas id="qwikcust_board"></canvas>
+      </div>
+      <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
+      <script>
+
+      $(function () {
+
+        var created_list = {{ created_list|safe }}
+        var quantity_list = {{ quantity_list|safe }}
+
+        var $populationChart = $("#qwikcust_board");
+        $.ajax({
+          url: $populationChart.data("url"),
+          success: function (data) {
+
+            var ctx = $populationChart[0].getContext("2d");
+
+            new Chart(ctx, {
+              type: 'bar',
+              data: {
+                labels: created_list,
+                datasets: [{
+                  label: 'Quantity',
+                  backgroundColor: '#007541',
+                  data: quantity_list,
+                }]
+              },
+              options: {
+                responsive: true,
+                legend: {
+                  position: 'top',
+                },
+                title: {
+                  display: true,
+                  text: "QUANTITY ORDERED PER DAY"
+                }
+
+              }
+            });
+
+          }
+        });
+
+      });
+
+    </script>
+    </div>
+
+    <div class="col-md-6">
+      <div id="container" style="width: 100%;">
+      <canvas id="qwikcust_board2" data-url=""></canvas>
+      </div>
+      <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
+      <script>
+
+      $(function () {
+
+        var created_list = {{ created_list|safe }}
+        var price_list = {{ price_list|safe }}
+
+        var $populationChart = $("#qwikcust_board2");
+        $.ajax({
+          url: $populationChart.data("url"),
+          success: function (data) {
+
+            var ctx = $populationChart[0].getContext("2d");
+
+            new Chart(ctx, {
+              type: 'bar',
+              data: {
+                labels: created_list,
+                datasets: [{
+                  label: 'Amount (₦)',
+                  backgroundColor: '#007541',
+                  data: price_list,
+                }]
+              },
+              options: {
+                responsive: true,
+                legend: {
+                  position: 'top',
+                },
+                title: {
+                  display: true,
+                  text: "AMOUNT"
+                }
+
+              }
+            });
+
+          }
+        });
+
+      });
+
+    </script>
+    </div>
+  </div>
+
+{% endblock content%}

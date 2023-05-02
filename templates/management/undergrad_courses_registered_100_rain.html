@@ -1,0 +1,118 @@
+{% extends 'board.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load humanize %}
+{% block title %}
+  <title>Registered Courses</title>
+  <meta name="description" content="">
+  <style type="text/css">
+  @media print {
+      #printbtn {
+          display :  none;
+      }
+  }
+  </style>
+
+{% endblock title %}
+
+{% block content %}
+{% load home_tags %}
+<div class="app-content">
+	<div class="side-app">
+  <div class="row">
+    <div class="col-xl-12">
+      <div class="card">
+        <br>
+        <br>
+        <br>
+          <div class="row">
+            <div class="col-md-2">
+              <h5 class="text-right"><img src="{% static 'img/logo2.png' %}" alt="Logo" class="logo3"></h5>
+            </div>
+            <div class="col-md-7">
+              <br>
+              <br>
+              <h2 class="text-center text-primary"><font size="+2"><strong>AHMAN PATEGI UNIVERSITY</strong></font></h2>
+              <p class="text-center text-primary lh">Km 3 Patigi-Kpada Road, Patigi, Kwara State, Nigeria</p>
+              <h2 class="text-center text-primary lh2"><font size="+2"><strong>COURSE REGISTRATION FORM</strong></font></h2>
+            </div>
+            <div class="col-md-2">
+              {% if user.photograph %}
+                <h5 class="text-right"><img src="{{ user.photograph.url }}" alt="Photograph" class="logo4"></h5>
+              {% else %}
+              {% endif %}
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col-md-5 ml-2">
+              <h6 class="text-primary text-left"><strong>Full Name (Surname First): <span class="text-black">{{user.last_name}} {{user.first_name}} {{user.middle_name}}</span> </strong></h6>
+              <h6 class="text-primary text-left"><strong>Reg/Matric No: <span class="text-black">{{user.username}}</span></strong></h6>
+              <h6 class="text-primary text-left"><strong>Department: <span class="text-black">{{user.programme.department}}</span></strong></h6>
+            </div>
+            <div class="col-md-6">
+              <br>
+              <h6 class="text-primary text-left"><strong>Faculty: <span class="text-black">{{user.programme.department.faculty}}</span></strong></h6>
+              <h6 class="text-primary text-left"><strong>Programme: <span class="text-black">{{user.programme}}</span></strong></h6>
+
+            </div>
+
+          </div>
+
+        <div class="card-body">
+          <div class="text-center">
+            {% if total_courses > 1 %}
+              <div class="form-group col-md-12">
+                <h3 class="form-group text-apu-purple">Total Courses Registered: {{total_courses}}</h3>
+              </div>
+              {% else %}
+              <div class="form-group col-md-12">
+                <h3 class="form-group text-apu-purple">Total Course Registered: {{total_courses}}</h3>
+              </div>
+              {% endif %}
+          </div>
+
+          <div class="table-responsive ">
+            <table class="table card-table table-vcenter text-nowrap">
+              <thead class="text-apu-green">
+                <tr>
+                  <th>DATE REGISTERED</th>
+                  <th>SESSION</th>
+                  <th>SEMESTER</th>
+                  <th>COURSE CODE</th>
+                  <th>COURSE TITLE</th>
+                  <th>CREDIT UNIT</th>
+                  <th>COORDINATOR</th>
+                </tr>
+              </thead>
+              <tbody class="">
+                {% for course in courses_page_obj %}
+                <tr class="">
+                  <th>{{course.created}}</th>
+                  <th>{{course.session}}</th>
+                  <th>{{course.semester}}</th>
+                  <td>{{course.course.course_code}}</td>
+                  <td>{{course.course.course_title}}</td>
+                  <td>{{course.course.credit_unit}}</td>
+                  <td>{{course.course.lecturer}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <h6 class="text-primary text-left"><strong>Student Signature and Date: <span class="text-black"></span> </strong></h6>
+            <h6 class="text-primary text-left"><strong>Level Adviser’s Name, Signature and Date: <span class="text-black"></span> </strong></h6>
+            <h6 class="text-primary text-left"><strong>Head of Department’s Name, Signature and Date: <span class="text-black"></span> </strong></h6>
+            <h6 class="text-primary text-left"><strong>Faculty Officer’s Name, Signature and Date: <span class="text-black"></span> </strong></h6>
+            <h6 class="text-primary text-left"><strong>Dean’s Name, Signature and Date: <span class="text-black"></span> </strong></h6>
+            <p class="text-primary text-center"><strong>INSTRUCTION:</strong> All signatories except the Dean must be given a copy of this Course Registration Form to be filed</p>
+
+            <div id="printbtn" class="card-footer text-right">
+                <button type="button" class="btn btn-apu-green mb-1" onClick="javascript:window.print();"><i class="fas fa-print fa-1x mr-1"></i> Print</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content%}

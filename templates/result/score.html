@@ -1,0 +1,60 @@
+{% extends 'board_academic.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load humanize %}
+{% block title %}
+  <title>Add Score</title>
+  <meta name="description" content="">
+
+{% endblock title %}
+
+{% block content %}
+{% load home_tags %}
+<div class=" app-content">
+	<div class="side-app">
+    <br>
+    <br>
+    <br>
+    {% include 'partials/_alerts.html' %}
+		<!--Page Header-->
+		<div class="page-header">
+			<h4 class="page-title"><i class="fa fa-plus-circle text-apu-purple mr-2 fa-1x"></i>Welcome to scores addition page, <strong class="text-apu-purple">{{user.first_name}}</strong></h4>
+			<ol class="breadcrumb bg-white">
+        <li class="breadcrumb-item"><a href="{% url 'academic_board' %}"><strong>Dashboard</strong></a></li>
+				<li class="breadcrumb-item active" aria-current="page"><strong>Score</strong></li>
+			</ol>
+		</div>
+		<!--page header-->
+
+    <div class="row">
+      <div class="col-md-12 col-xl-12 col-lg-12">
+      <div class="card">
+        <form method="post" class="form-group col-lg-12" enctype="multipart/form-data">
+          <div class="card-header bg-white">
+            <h4 class="text-apu-purple">
+              <i class="fas fa-plus-circle"></i> Add Score</h4>
+          </div>
+          <br>
+          {% csrf_token %}
+          <div class="form-row">
+            <div class="form-group col-sm-12 mb-2">
+              <h3 class="text-apu-purple">Enter scores for <span class="text-apu-green">{{matric}}</span> in <span class="text-apu-green">{{course_code}}</span></h3>
+            </div>
+          </div>
+          <div class="form-row">
+              <div class="form-group col-sm-6 mb-2">
+                  {{ form.ca1|as_crispy_field }}
+              </div>
+              <div class="form-group col-sm-6 mb-2">
+                  {{ form.exam|as_crispy_field }}
+              </div>
+          </div>
+          <input type="submit" class="form-group col-md-12 btn btn-apu-green" value="Add">
+        </form>
+      </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock content%}
