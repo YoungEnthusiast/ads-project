@@ -2,41 +2,61 @@
 {% load static %}
 {% load humanize %}
 {% block title %}
-  <title>About Us | Ads Posts</title>
+  <title>{{post.title}} | Ads Posts</title>
 
 {% endblock title %}
 
 {% block content %}
 
-<h1>{{ post.title }}</h1>
-    <p class="date">Published {{ post.publish }} by {{ post.author }}</p>
-    {{ post.body }}
-    <p><a href="">Share this post</a></p>
+    <section class="about_section layout_padding py-10">
+      <div class="container px-5">
+          <div class="row gx-5 justify-content-center">
+              <div class="col-lg-10 col-xl-8">
+                  <div class="single-post">
+                      {% if post.image %}
+                      <img class="img-fluid mb-2 rounded" src="{{ post.image.url }}" />
+                      {% endif %}
 
-    <h2>Similar posts</h2>
-    {% for post in similar_posts %}
-        <p><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></p>
-    {% empty %}
-        There are no similar posts yet.
-    {% endfor %}
+                      <div class="d-flex align-items-center justify-content-between mb-5">
+                          <div class="single-post-meta me-4">
 
-<div class="about_section layout_padding">
-  <div class="container">
-     <div class="about_section_main">
-        <div class="row">
-           <div class="col-md-6">
-              <div class="about_taital_main">
-                 <h1 class="about_taital">About Our beauty sotore</h1>
-                 <p class="about_text">labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequatlabore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequatlabore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
-                 <div class="readmore_bt"><a href="#">Read More</a></div>
+                          </div>
+
+                          <div class="single-post-meta-links">
+                              <sup><a class="text-black h5" href="">Share this review</a></sup>
+                              <a href="#!"><i class="fab fa-twitter-square fa-2x text-ads fa-fw"></i></a>
+                              <a href="#!"><i class="fab fa-facebook-square fa-2x text-ads fa-fw"></i></a>
+                              <a href="#!"><i class="fab fa-whatsapp-square fa-2x text-ads fa-fw"></i></a>
+                          </div>
+                      </div>
+                      <h1>{{ post.title }}</h1>
+                      <p class="lead">Empower communities and energize engaging ideas; scale and impact do-gooders while disruptring industries. Venture philanthropy benefits corporations and people by moving the needle.</p>
+
+                      <h2>Similar posts</h2>
+                      {% for post in similar_posts %}
+                      <p><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></p>
+                      {% empty %}
+                      There are no similar posts yet.
+                      {% endfor %}
+
+
+
+
+                      <div class="single-post-text my-5">
+
+                          <hr class="my-5" />
+                          <div class="text-center"><a class="btn btn-ads" href="page-blog-overview.html">Back to Posts and Reviews</a></div>
+                      </div>
+
+                  </div>
               </div>
-           </div>
-           <div class="col-md-6">
-              <div><img src="{% static 'images/about-img.png' %}" class="image_3"></div>
-           </div>
-        </div>
-     </div>
-  </div>
-</div>
+          </div>
+      </div>
+
+    </section>
+
+
+
+
 
 {% endblock content%}

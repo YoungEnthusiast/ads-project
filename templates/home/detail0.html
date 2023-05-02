@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}
+  <title>{{post.title}} | Ads Posts</title>
+
+{% endblock title %}
+
+{% block content %}
+
+    <section class="about_section layout_padding py-10">
+      <div class="container px-5">
+          <div class="row gx-5 justify-content-center">
+              <div class="col-lg-10 col-xl-8">
+                  <div class="single-post">
+                      <h1>{{ post.title }}</h1>
+                      <p class="lead">Empower communities and energize engaging ideas; scale and impact do-gooders while disruptring industries. Venture philanthropy benefits corporations and people by moving the needle.</p>
+                      <div class="d-flex align-items-center justify-content-between mb-5">
+                          <div class="single-post-meta me-4">
+                            {% if post.image %}
+                              <img class="single-post-meta-img" src="{{ post.image.url }}" />
+                            {% endif %}
+                              <div class="single-post-meta-details">
+                                  <div class="single-post-meta-details-name">Valerie Luna</div>
+                                  <div class="single-post-meta-details-date">Feb 5 &middot; 6 min read</div>
+                              </div>
+                          </div>
+                          <p><a href="">Share this post</a></p>
+                          <div class="single-post-meta-links">
+                              <a href="#!"><i class="fab fa-twitter fa-fw"></i></a>
+                              <a href="#!"><i class="fab fa-facebook-f fa-fw"></i></a>
+                              <a href="#!"><i class="fas fa-bookmark fa-fw"></i></a>
+                          </div>
+                      </div>
+                      <h2>Similar posts</h2>
+                      {% for post in similar_posts %}
+                      <p><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></p>
+                      {% if post.image %}
+                      <img class="img-fluid mb-2 rounded" src="{{ post.image.url }}" />
+                      {% endif %}
+                      {% empty %}
+                      There are no similar posts yet.
+                      {% endfor %}
+
+                      <div class="single-post-text my-5">
+
+                          <hr class="my-5" />
+                          <div class="text-center"><a class="btn btn-transparent-dark" href="page-blog-overview.html">Back to Blog Overview</a></div>
+                      </div>
+
+                  </div>
+              </div>
+          </div>
+      </div>
+
+    </section>
+
+
+
+
+
+{% endblock content%}

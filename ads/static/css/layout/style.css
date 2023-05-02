@@ -939,10 +939,16 @@ button {
     margin-top: 90px;
 }
 
+.text-ads {
+  color: #9A5528 !important;
+}
+
 .bg-ads {
   background-color: #9A5528 !important;
 }
 
-.text-ads {
-  color: #9A5528 !important;
+.btn-ads {
+  color: #fff;
+  background-color: #9A5528;
+  border-color: #9A5528;
 }
