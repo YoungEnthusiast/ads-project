@@ -58,7 +58,13 @@
                      {% endfor %}
                  </p>
                  <p class="lorem_text">incididunt ut labore et dolore magna aliqua. Ut enim </p>
-                 <img src="{% static 'images/img-1.png' %}" style="border-radius: 10px;" class="image_1">
+                 {% if post.image %}
+                 <a href="{{ post.get_absolute_url }}"><img src="{{post.image.url}}" class="image_1" alt="{{post.alt}}"></a>
+                 {% elif post %}
+                 <a href="{{ post.get_absolute_url }}"><img src="" class="image_1" alt="{{post.alt}}"></a>
+                 {% else %}
+                 <a href=""><img src="" class="image_1" alt="{{post.alt}}"></a>
+                 {% endif %}
                  <div class="btn_main">
                     <div class="buy_bt center">
                        <ul>

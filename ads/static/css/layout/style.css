@@ -450,6 +450,7 @@ button {
     margin: 20px 0px;
     padding: 0px 20px;
     height: 200px;
+    border-radius:50px;
 }
 
 .btn_main {
