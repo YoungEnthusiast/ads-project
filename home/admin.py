@@ -13,6 +13,7 @@ admin.site.register(Category, CategoryAdmin)
 class AdvertAdmin(admin.ModelAdmin):
     list_display = ['created', 'poster', 'title', 'status']
     search_fields = ['title', 'abstract']
+    prepopulated_fields = {'slug': ('title',), 'alt': ('title',)}
     # list_filter = ['status']
     # list_display_links = ['email']
     list_per_page = 100

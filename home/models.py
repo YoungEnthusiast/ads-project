@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from taggit.managers import TaggableManager
 
 class Category(models.Model):
@@ -31,20 +32,23 @@ class Advert(models.Model):
     #     ('Fitness and Gym', 'Fitness and Gym'),
     # ]
     STATUS_CHOICES = [
-        ('Accepted', 'Accepted'),
+        ('Approved', 'Approved'),
 		('Rejected', 'Rejected'),
         ('Under review', 'Under review'),
     ]
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='adverts_category')
+    slug = models.SlugField(max_length=255, unique_for_date='created', null=True)
     poster = models.ForeignKey('account.Person', null=True, on_delete=models.SET_NULL)
     image = models.ImageField(upload_to='adverts/%Y/%m/%d', blank=True, null=True)
     title = models.CharField(max_length=255, null=True)
+    alt = models.CharField(max_length=255, blank=True, null=True)
     link = models.CharField(max_length=1000, null=True)
     post = models.TextField(max_length=5000, null=True)
     status = models.CharField(max_length=12, choices=STATUS_CHOICES, default="Under review", null=True)
     updated_by = models.ManyToManyField('account.Person', blank=True, related_name='adverts_updated')
 
     loves = models.PositiveIntegerField(default=0)
+    edits = models.PositiveIntegerField(default=0)
     lovers = models.ManyToManyField('account.Person', blank=True, related_name='adverts_lovers')
 
     views = models.PositiveIntegerField(default=0)
@@ -54,8 +58,14 @@ class Advert(models.Model):
     updated = models.DateTimeField(auto_now=True, null=True)
     tags = TaggableManager()
 
-    def __str__(self):
-        return str(self.id)
-
     class Meta:
         ordering = ('-created',)
+
+    def __str__(self):
+        return str(self.title)
+
+    def get_absolute_url(self):
+        return reverse('post_detail', args=[self.created.year,
+                                                 self.created.strftime('%m'),
+                                                 self.created.strftime('%d'),
+                                                 self.slug])

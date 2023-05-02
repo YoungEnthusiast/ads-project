@@ -6039,9 +6039,7 @@ button.bg-success:focus {
   background-color: #17a2b8 !important;
 }
 
-.bg-ads {
-  background-color: #fef4ec !important;
-}
+
 
 a.bg-info:hover, a.bg-info:focus,
 button.bg-info:hover,
@@ -8817,12 +8815,6 @@ a.text-success:hover, a.text-success:focus {
 .text-info {
   color: #17a2b8 !important;
 }
-
-.text-ads {
-  color: #fef4ec !important;
-}
-
-
 
 a.text-info:hover, a.text-info:focus {
   color: #117a8b !important;

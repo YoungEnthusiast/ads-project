@@ -937,3 +937,11 @@ button {
 .margin_top90 {
     margin-top: 90px;
 }
+
+.bg-ads {
+  background-color: #9A5528 !important;
+}
+
+.text-ads {
+  color: #9A5528 !important;
+}
