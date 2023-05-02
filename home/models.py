@@ -43,7 +43,7 @@ class Advert(models.Model):
     title = models.CharField(max_length=255, null=True)
     alt = models.CharField(max_length=255, blank=True, null=True)
     link = models.CharField(max_length=1000, null=True)
-    post = models.TextField(max_length=5000, null=True)
+    article = models.TextField(max_length=5000, null=True)
     status = models.CharField(max_length=12, choices=STATUS_CHOICES, default="Under review", null=True)
     updated_by = models.ManyToManyField('account.Person', blank=True, related_name='adverts_updated')
 

@@ -31,28 +31,6 @@
      </div>
   </div>
 </div>
-
-
-<h1>My Blog</h1>
-    {% if tag %}
-        <h2>Posts tagged with "{{ tag.name }}"</h2>
-    {% endif %}
-    {% for post in posts %}
-        <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
-        <p class="tags">
-            Tags:
-            {% for tag in post.tags.all %}
-                <a href="{% url "post_list_by_tag" tag.slug %}">{{ tag.name }}</a>
-                {% if not forloop.last %}, {% endif %}
-            {% endfor %}
-        </p>
-        <p class="date">Published {{ post.publish }} by {{ post.author }}</p>
-        {{ post.body|truncatewords_html:30 }}
-    {% endfor %}
-
-
-
-
 <!-- banner section end -->
 <!-- product section start -->
 <div class="product_section layout_padding">
@@ -64,30 +42,21 @@
      </div>
      <div class="product_section_2 layout_padding">
         <div class="row">
-
           {% if tag %}
               <h2>Posts tagged with "{{ tag.name }}"</h2>
           {% endif %}
+
           {% for post in posts %}
-              <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
-              <p class="tags">
-                  Tags:
-                  {% for tag in post.tags.all %}
-                      <a href="{% url "post_list_by_tag" tag.slug %}">{{ tag.name }}</a>
-                      {% if not forloop.last %}, {% endif %}
-                  {% endfor %}
-              </p>
-              <p class="date">Published {{ post.publish }} by {{ post.author }}</p>
-              {{ post.body|truncatewords_html:30 }}
-          {% endfor %}
-
-
-
-
-        {% for advert in adverts %}
            <div class="col-lg-3 col-sm-6">
               <div class="product_box">
-                 <h4 class="bursh_text">Beauty Bursh</h4>
+                 <h4 class="bursh_text"><a href="{{ post.get_absolute_url }}">{{ post.title|truncatewords_html:3 }}</a></h4>
+                 <p class="tags">
+                     Tags:
+                     {% for tag in post.tags.all %}
+                         <a href="{% url "post_list_by_tag" tag.slug %}">{{ tag.name }}</a>
+                         {% if not forloop.last %}, {% endif %}
+                     {% endfor %}
+                 </p>
                  <p class="lorem_text">incididunt ut labore et dolore magna aliqua. Ut enim </p>
                  <img src="{% static 'images/img-1.png' %}" style="border-radius: 10px;" class="image_1">
                  <div class="btn_main">
